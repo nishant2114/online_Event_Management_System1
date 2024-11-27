@@ -1,0 +1,67 @@
+<div class="row">
+    <!-- Booking Form -->
+    <div class="col-md-6">
+        <form action="{% url 'hall_details' hall.id %}" method="POST" id="bookingForm">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="hall" class="form-label">Select Hall</label>
+                <select id="hall" name="hall" class="form-select" required>
+                    <option value="{{ hall.id }}">{{ hall.name }}</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="event_name">Event name</label>
+                <input type="text" id="event_name" name="event_name" class="form-control" placeholder="Event name" required>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="start_date" class="form-label">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="start_time" class="form-label">Start Time</label>
+                    <input type="time" id="start_time" name="start_time" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="end_date" class="form-label">End Date</label>
+                    <input type="date" id="end_date" name="end_date" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="end_time" class="form-label">End Time</label>
+                    <input type="time" id="end_time" name="end_time" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="total_cost" class="form-label">Total Cost</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="total_cost" class="form-control" readonly>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="special_requests" class="form-label">Special Requests</label>
+                <textarea id="special_requests" name="special_requests" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <!-- Booking Calendar -->
+    <div class="col-md-6">
+        {% include 'calender.html' %}
+    </div>
+</div>

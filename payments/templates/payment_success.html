@@ -1,0 +1,11 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Payment Success{% endblock %}
+
+{% block content %}
+    <h2>Payment Successful!</h2>
+    <p>Your payment was successfully processed.</p>
+    <p>Booking ID: {{ booking.id }}</p>
+    <p>Total Cost: ₹{{ booking.total_cost }}</p>
+    <p>Thank you for booking with us!</p>
+{% endblock %}

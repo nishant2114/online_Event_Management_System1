@@ -1,0 +1,155 @@
+<style>
+    .fc .fc-button {
+        font-size: 0.5rem;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .fc-event-title {
+        font-size: 0.75rem;
+    }
+
+    .fc-daygrid-day-number {
+        font-size: 0.8rem;
+    }
+
+    .fc-timegrid-slot-label {
+        font-size: 0.9rem;
+    }
+
+    .fc-scrollgrid-sync-inner {
+        font-size: 0.8rem;
+    }
+
+    .fc-toolbar-title {
+        font-size: 0.8rem;
+    }
+
+    .fc-event-time {
+        font-size: 0.7rem;
+    }
+
+    .fc .fc-daygrid-day {
+        font-size: 0.5rem;
+    }
+</style>
+
+<div >
+    <h4 class="text-center">Booking Calendar</h4>
+    <div id="calendar" class="mt-4"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const startDateInput = document.getElementById('start_date');
+        const startTimeInput = document.getElementById('start_time');
+        const endDateInput = document.getElementById('end_date');
+        const endTimeInput = document.getElementById('end_time');
+        const totalCostInput = document.getElementById('total_cost');
+        
+        // Get the price per hour from Django context
+        const pricePerHour = {{ hall.price|floatformat:2 }};
+    
+        // Fetch booked slots from the context data passed to the template
+        const bookedSlots = {{ events|safe }};  // Directly use the events context
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'timeGridDay,timeGridWeek,dayGridMonth',
+            },
+            selectable: true,
+            timeZone: 'Asia/Kolkata',
+            events: bookedSlots, // Use the passed booked slots
+            select: function (info) {
+                const selectedStart = info.start.toISOString();
+                const selectedEnd = info.end.toISOString();
+        
+                // Set the values in the input fields
+                startDateInput.value = selectedStart.split('T')[0]; // YYYY-MM-DD
+                startTimeInput.value = selectedStart.split('T')[1].substring(0, 5); // HH:MM
+                endDateInput.value = selectedEnd.split('T')[0]; // YYYY-MM-DD
+                endTimeInput.value = selectedEnd.split('T')[1].substring(0, 5); // HH:MM
+                
+                // Calculate the total cost based on the selected start and end times
+                calculateTotalCost(info.start, info.end);
+        
+                // Check for overlapping booked slots
+                const isOverlap = bookedSlots.some(slot => {
+                    const slotStart = new Date(slot.start);
+                    const slotEnd = new Date(slot.end);
+                    const infoStart = new Date(info.start);
+                    const infoEnd = new Date(info.end);
+
+                    // Check if the new booking overlaps with any existing booking
+                    return (
+                        ((infoStart < slotEnd && infoEnd > slotStart)));
+                });
+
+                if (isOverlap) {
+                    alert('This slot is already booked. Please choose another.');
+                    calendar.unselect();
+                    // Clear the input fields if there's an overlap
+                    startDateInput.value = '';
+                    startTimeInput.value = '';
+                    endDateInput.value = '';
+                    endTimeInput.value = '';
+                    return;
+                }
+        
+                const confirmBooking = confirm(
+                    `Do you want to book this time slot?\nStart: ${selectedStart}\nEnd: ${selectedEnd}`
+                );
+        
+                if (confirmBooking) {
+                    // Example: Send selected time to the backend
+                    fetch('/api/book-slot', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            startTime: selectedStart,
+                            endTime: selectedEnd,
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(`Booking successful: ${data.message}`);
+                            // Add the new booking slot to the calendar
+                            calendar.addEvent({
+                                title: 'Your Booking',
+                                start: info.start,
+                                end: info.end,
+                                color: 'green',
+                            });
+                        })
+                } else {
+                    calendar.unselect();
+                    // Clear the input fields if the user cancels
+                    startDateInput.value = '';
+                    startTimeInput.value = '';
+                    endDateInput.value = '';
+                    endTimeInput.value = '';
+                }
+            },
+        });
+    
+        // Render the calendar
+        calendar.render();
+
+        // Function to calculate the total cost based on time duration
+        function calculateTotalCost(startTime, endTime) {
+            const timeDifference = endTime - startTime; // In milliseconds
+            if (timeDifference > 0) {
+                const totalHours = timeDifference / (1000 * 60 * 60); // Convert to hours
+                const totalCost = totalHours * pricePerHour; // Calculate cost
+                totalCostInput.value = totalCost.toFixed(2); // Display cost in input field
+            } else {
+                totalCostInput.value = "Invalid time range";
+            }
+        }
+    });
+</script>

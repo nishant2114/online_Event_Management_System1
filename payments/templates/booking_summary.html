@@ -1,0 +1,28 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block title %}Payments{% endblock %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+<body>
+    <h1>Booking Summary</h1>
+    <p>Thank you for your booking! Below are your booking details:</p>
+    <ul>
+        <li><strong>Hall:</strong> {{ booking.hall.name }}</li>
+        <li><strong>Start Date:</strong> {{ booking.start_date }}</li>
+        <li><strong>Start Time:</strong> {{ booking.start_time }}</li>
+        <li><strong>End Date:</strong> {{ booking.end_date }}</li>
+        <li><strong>End Time:</strong> {{ booking.end_time }}</li>
+        <li><strong>Total Cost:</strong> ₹{{ booking.total_cost }}</li>
+    </ul>
+    <p>Enjoy your event!</p>
+</body>
+</html>
+
+
+{% endblock %}

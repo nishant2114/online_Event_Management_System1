@@ -1,0 +1,54 @@
+<aside id="sidebar" class="vh-100">
+    <div class="mb-5"></div>
+    <div class="d-flex">
+        <button class="toggle-btn" type="button">
+            <i class="lni lni-grid-alt"></i>
+        </button>
+        <div class="sidebar-logo">
+            <a href="#">Celebrations</a>
+        </div>
+    </div>
+    <ul class="sidebar-nav">
+        <!-- Profile -->
+        <li class="sidebar-item {% if request.path == '/profile/' %}active{% endif %}">
+            <a href="{% url 'profile' %}" class="sidebar-link">
+                <i class="lni lni-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+        <!-- Your Bookings -->
+        <li class="sidebar-item {% if request.path == '/hall/hall_bookings' %}active{% endif %}">
+            <a href="{% url 'hall_bookings' %}" class="sidebar-link">
+                <i class="lni lni-agenda"></i>
+                <span>Your Bookings</span>
+            </a>
+        </li>
+        <!-- Your Appointments -->
+        <li class="sidebar-item {% if request.path == '/appointments_dashboard/' %}active{% endif %}">
+            <a href="{% url 'appointments_dashboard' %}" class="sidebar-link">
+                <i class="bi bi-calendar4-event"></i>
+                <span>Your Appointments</span>
+            </a>
+        </li>
+        <!-- Notification -->
+        <li class="sidebar-item {% if request.path == '/notification/' %}active{% endif %}">
+            <a href="#" class="sidebar-link">
+                <i class="lni lni-popup"></i>
+                <span>Notification</span>
+            </a>
+        </li>
+        <!-- Setting -->
+        <li class="sidebar-item {% if request.path == '/setting/' %}active{% endif %}">
+            <a href="#" class="sidebar-link">
+                <i class="lni lni-cog"></i>
+                <span>Setting</span>
+            </a>
+        </li>
+    </ul>
+    <div class="sidebar-footer">
+        <a href="{% url 'logout' %}" class="sidebar-link">
+            <i class="lni lni-exit"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>

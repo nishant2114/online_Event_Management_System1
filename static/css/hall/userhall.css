@@ -1,0 +1,247 @@
+/* General styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: url("images/1.jpg") no-repeat center center fixed;
+    background-size: cover;
+    overflow-y: auto; /* Allows vertical scrolling */
+}
+
+/* Search container styling */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Aligns the search bar to the right */
+}
+
+/* Search input field */
+.search-input {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Logout button styling */
+.logout-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff4d4d; /* Change to your preferred color */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #ff1a1a; /* Darker shade on hover */
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Wrapper for layout */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Top navigation styling */
+.nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 250px; /* Adjust this when sidebar is visible */
+    z-index: 100;
+  
+}
+
+.bx-menu {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.nav-logo p {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+/* Side navigation styling */
+.side-nav {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially hidden */
+    height: 100%;
+    background-color: rgb(5, 57, 100);
+    color: #ffffff;
+    transition: left 0.3s; /* Transition for sliding in */
+    padding-top: 10px;
+}
+
+.side-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.side-nav ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+.side-nav ul li a {
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    letter-spacing: 1px;
+    padding: 10px;
+}
+
+.side-nav ul li a:hover {
+    background-color: #3b83ac;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.side-nav h2 {
+    text-align: center;
+}
+
+/* Main content styling */
+.main-content {
+    padding: 20px;
+    margin-left: 250px; /* Default margin for main content */
+    transition: margin-left 0.3s; /* Smooth transition for margin change */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Active class for the sidebar */
+.side-nav-active {
+    left: 0; /* Show the sidebar */
+}
+
+/* Active class for the main content */
+.main-content-active {
+    margin-left: 250px; /* Add margin when the sidebar is active */
+}
+
+/* Hall card styling */
+.hall-cards {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping of cards */
+    justify-content: flex-start; /* Aligns cards to the left */
+    margin-top: 20px; /* Space at the top of the card section */
+    transition: margin-left 0.3s; /* Smooth transition for cards moving */
+    margin-left: 0; /* Initial margin left */
+}
+
+/* Each card styling */
+.hall-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: calc(25% - 20px); /* Each card takes 25% width minus the gap */
+    margin: 10px; /* 10px gap around cards */
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.hall-card:hover {
+    transform: scale(1.05);
+}
+
+.hall-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.hall-details {
+    padding: 15px;
+    flex-grow: 1; /* Allows the details section to take remaining space */
+}
+
+.hall-details h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.hall-details p {
+    color: #555;
+    margin: 5px 0;
+}
+
+.rating {
+    color: #FFD700;
+    font-size: 18px;
+}
+
+.price,
+.location {
+    font-weight: bold;
+}
+
+.description {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .hall-card {
+        width: calc(50% - 20px); /* 2 cards per row for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .hall-card {
+        width: calc(100% - 20px); /* 1 card per row for mobile screens */
+    }
+}
+
+/* Styles for the select button */
+.select-button {
+    background-color: #1570b6; /* Green background */
+    color: white;              /* White text */
+    border: none;              /* No border */
+    padding: 10px 15px;        /* Padding for the button */
+    text-align: center;        /* Center the text */
+    text-decoration: none;      /* No underline */
+    display: inline-block;      /* Inline-block to maintain size */
+    font-size: 16px;           /* Font size */
+    margin-top: 10px;          /* Margin above the button */
+    cursor: pointer;           /* Pointer cursor on hover */
+    border-radius: 5px;        /* Rounded corners */
+    transition: background-color 0.3s; /* Transition effect */
+}
+
+/* Hover effect for the button */
+.select-button:hover {
+    background-color: #33629e; /* Darker green on hover */
+}
+
+/* Optional: Active effect for the button */
+.select-button:active {
+    background-color: #3e8e41; /* Even darker green when clicked */
+}
+
+
+

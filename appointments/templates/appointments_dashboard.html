@@ -1,0 +1,160 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block title %}
+Appointment Dashboard
+{% endblock %}
+
+{% block extra_css %}
+<!-- Extra CSS specific to individual -->
+
+<style>
+    #event-list {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Main content specified to individual -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h4 class="text-center ">Appointments</h4>
+            <div id="event-list">
+                <h5 class="text-primary">Current Events</h5>
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Event Title</th>
+                            <th scope="col">Event Date</th>
+                            <th scope="col">Time Slot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in current_events %}
+                        <tr>
+                            <td>{{ event.title }}</td>
+                            <td>{{ event.date }}</td>
+                            <td>{{ event.start_time }} - {{ event.end_time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No current events.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Future Events</h5>
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Event Title</th>
+                            <th scope="col">Event Date</th>
+                            <th scope="col">Time Slot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in future_events %}
+                        <tr>
+                            <td>{{ event.title }}</td>
+                            <td>{{ event.date }}</td>
+                            <td>{{ event.start_time }} - {{ event.end_time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No future events.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Past Events</h5>
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Event Title</th>
+                            <th scope="col">Event Date</th>
+                            <th scope="col">Time Slot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in past_events %}
+                        <tr>
+                            <td>{{ event.title }}</td>
+                            <td>{{ event.date }}</td>
+                            <td>{{ event.start_time }} - {{ event.end_time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No past events.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Extra JS specific to individual pages -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+
+        // Initialize the calendar
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                //right: 'dayGridMonth,timeGridWeek,timeGridDay',
+            },
+            events: '/api/appointments/', // Fetch events from the Django API endpoint
+            eventDidMount: function (info) {
+                var eventDate = new Date(info.event.start);
+                var currentDate = new Date();
+
+                // Style events based on their date (past, today, future)
+                if (eventDate < currentDate) {
+                    info.el.style.backgroundColor = '#f8d7da'; // Red for past
+                } else if (eventDate.toDateString() === currentDate.toDateString()) {
+                    info.el.style.backgroundColor = '#d4edda'; // Green for today
+                } else {
+                    info.el.style.backgroundColor = '#d1ecf1'; // Blue for future
+                }
+
+                // Add a tooltip or text for the meeting link (description field)
+                if (info.event.extendedProps.description) {
+                    let linkContainer = document.createElement('div');
+                    linkContainer.innerHTML = ` 
+                        <a href="${info.event.extendedProps.description}" target="_blank" style="color: blue; text-decoration: underline;">
+                            Meeting Link
+                        </a>
+                    `;
+                    info.el.appendChild(linkContainer);
+                }
+            },
+        });
+
+        // Render the calendar
+        calendar.render();
+
+        // Optional: previous and next buttons functionality
+        document.getElementById('prevButton')?.addEventListener('click', function () {
+            calendar.prev();
+        });
+
+        document.getElementById('nextButton')?.addEventListener('click', function () {
+            calendar.next();
+        });
+    });
+</script>
+{% endblock %}
