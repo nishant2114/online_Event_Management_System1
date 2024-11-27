@@ -187,8 +187,8 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 # settings.py
-RAZORPAY_KEY_ID = 'rzp_test_AEiFKqRh7Pfvt4'
-RAZORPAY_KEY_SECRET = 'Y1hpvz4YKDc4sk4aNvMaSgVs'
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 
 
 # Email settings
