@@ -59,6 +59,7 @@ razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZOR
 @login_required
 def hall_details(request, pk):
     hall = get_object_or_404(Hall, id=pk)
+    amenities_list = hall.amenities.split(',')
 
     # Fetch all bookings for the hall
     bookings = Booking.objects.filter(hall=hall, is_confirmed=True)
@@ -157,7 +158,7 @@ def hall_details(request, pk):
         # Redirect to the payment page with booking details
         return redirect('payment_page', pk=booking.id)
 
-    return render(request, 'hall_details.html', {'hall': hall, 'events': events})
+    return render(request, 'hall_details.html', {'hall': hall, 'events': events, 'amenities_list': amenities_list})
 
 
 

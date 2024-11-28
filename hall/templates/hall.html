@@ -5,11 +5,29 @@
 
 {% block extra_css %}
 <!-- Extra CSS specific to individual pages -->
+<style>
+    .venue-card img {
+      max-height: 200px;
+      object-fit: cover;
+    }
+    .venue-info {
+      padding: 15px;
+    }
+    .venue-price {
+      color: green;
+      font-weight: bold;
+    }
+    .venue-capacity {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
 <div class="main-content">
     <!-- <h1 class="text-center mb-5">Halls</h1> -->
+   
 
     <!-- Filter Form -->
     <div class="container mb-4">
@@ -33,10 +51,10 @@
             </div>
         </form>
     </div>
-
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
             {% for hall in halls %}
+            
             <!-- Hall Card -->
             <div class="col">
                 <div class="card shadow-sm h-100">
@@ -51,11 +69,26 @@
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">{{ hall.name }}</h5>
-                        <p class="card-text">
-                            <span class="d-block">Rating: {{ hall.rating }}</span>
-                            <span class="d-block">Price: ${{ hall.price }}</span>
-                            <span class="d-block">Location: {{ hall.address }}</span>
-                        </p>
+                        <div class="row card-text">
+
+                         <div class="col-9">
+                            <span class="d-block  fs-5">{{ hall.location }}</span>
+                        </div>
+                        <div class="col-3">
+                            <span class="text-end badge bg-success">★ {{ hall.rating }}</span>
+                        </div>
+                            <div class="col-6">
+                                <span class="card-text venue-price">Price: <i class="bi bi-currency-rupee"></i>{{ hall.price }}</span>
+                            </div>
+                           
+                            <div class="col-6">
+                                <span class=" text-strat venue-capacity">{{ hall.capacity }} capacity</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="text-end">{{ hall.description }}</span>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>

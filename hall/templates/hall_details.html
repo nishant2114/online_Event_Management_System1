@@ -31,7 +31,7 @@
     {% endfor %}
 {% endif %}
 
-    <h1 class="text-center mb-4">Hall Details</h1>
+    <h1 class="text-center mb-4">{{hall.name}}</h1>
 
     <!-- Hall Image Carousel -->
     <div id="hallCarousel" class="carousel slide mb-4 shadow-sm" data-bs-ride="carousel">
@@ -53,15 +53,108 @@
 
     <!-- Hall Details -->
     <div class="card p-4">
-        <p class="card-text"><strong>Rating:</strong> {{ hall.rating }}</p>
-        <p class="card-text"><strong>Price:</strong> ${{ hall.price }}</p>
-        <p class="card-text"><strong>Location:</strong> Vizag</p>
-        <p class="card-text"><strong>Description:</strong> {{ hall.description }}</p>
+        <style>
+            .details-label {
+              font-weight: bold;
+              color: #333;
+              width: 150px;  /* Fixed width for the label */
+            }
+            .details-value {
+              color: #555;
+              flex-grow: 1;  /* Allow value to take remaining space */
+            }
+            .row-space {
+              margin-bottom: 10px;
+            }
+          </style>
+        </head>
+        <body>
+        
+          <div class="container mt-5">
+            <!-- Hall Details Section -->
+            <div class="row">
+              <!-- Left Column: Basic Information (except Description and Amenities) -->
+              <div class="col-md-6">
+                <!-- Name -->
+                <div class="row-space d-flex">
+                  <p class="details-label">Name:</p>
+                  <p class="details-value">{{ hall.name }}</p>
+                </div>
+        
+                <!-- Location -->
+                <div class="row-space d-flex">
+                  <p class="details-label">Location:</p>
+                  <p class="details-value">{{ hall.location }}</p>
+                </div>
+        
+                <!-- Price -->
+                <div class="row-space d-flex">
+                  <p class="details-label">Price:</p>
+                  <p class="details-value">₹{{ hall.price }}</p>
+                </div>
+        
+                <!-- Capacity -->
+                <div class="row-space d-flex">
+                  <p class="details-label">Capacity:</p>
+                  <p class="details-value">{{ hall.capacity }} people</p>
+                </div>
+        
+                <!-- Rating -->
+                <div class="row-space d-flex">
+                  <p class="details-label">Rating:</p>
+                  <p class="details-value">{{ hall.rating }} / 5</p>
+                </div>
+        
+                <!-- Address -->
+                <div class="row-space d-flex">
+                  <p class="details-label">Address:</p>
+                  <p class="details-value">{{ hall.address }}</p>
+                </div>
+        
+                <!-- Availability -->
+                <div class="row-space d-flex">
+                  <p class="details-label">Availability:</p>
+                  <p class="details-value">{{ hall.availability|yesno:"Available,Not Available" }}</p>
+                </div>
+        
+                <!-- Contact -->
+                <div class="row-space d-flex">
+                  <p class="details-label">Contact:</p>
+                  <p class="details-value">{{ hall.contact_number }}</p>
+                </div>
+              </div>
+        
+              <!-- Right Column: Amenities in Line-by-Line -->
+              <div class="col-md-6">
+                <div class="row-space">
+                  <p class="details-label">Amenities:</p>
+                  <ul class="amenities-list">
+                    {% for amenity in amenities_list %}
+                      <li>{{ amenity.strip }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Last Row: Description -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="row-space">
+                  <p class="details-label">Description:</p>
+                  <p class="details-value">{{ hall.description }}</p>
+                </div>
+              </div>
+            </div>
+        
+          </div>
 
+       <div>
         <div class="d-grid gap-2 mt-4">
             <a href="#bookingForm" class="btn btn-primary">Book this Hall</a>
             <a href="{% url 'create_appointment' hall.id %}" class="btn btn-secondary">Book an Appointment</a>
         </div>
+       </div>
     </div>
 
     <!-- User Messages -->
