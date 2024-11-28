@@ -29,7 +29,7 @@
           <tbody>
             {% for booking in bookings %}
               <tr>
-                <td>{{ booking.hall.name }}</td>
+                <td><a href="{% url 'hall_details' booking.hall.id %}">{{ booking.hall.name }}</td></a>
                 <td>{{ booking.hall.location }}</td>
                 <td>{{ booking.start_date }} - {{ booking.end_date }}</td>
                 <td>{{ booking.start_time }} - {{ booking.end_time }}</td>

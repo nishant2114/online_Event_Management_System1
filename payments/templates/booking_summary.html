@@ -9,20 +9,48 @@
         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
 {% endif %}
-<body>
-    <h1>Booking Summary</h1>
-    <p>Thank you for your booking! Below are your booking details:</p>
-    <ul>
-        <li><strong>Hall:</strong> {{ booking.hall.name }}</li>
-        <li><strong>Start Date:</strong> {{ booking.start_date }}</li>
-        <li><strong>Start Time:</strong> {{ booking.start_time }}</li>
-        <li><strong>End Date:</strong> {{ booking.end_date }}</li>
-        <li><strong>End Time:</strong> {{ booking.end_time }}</li>
-        <li><strong>Total Cost:</strong> ₹{{ booking.total_cost }}</li>
-    </ul>
-    <p>Enjoy your event!</p>
-</body>
-</html>
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-success text-white text-center">
+            <h3>Booking Summary</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-muted text-center">Thank you for your booking! Below are your booking details:</p>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Hall</th>
+                        <td>{{ booking.hall.name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Start Date</th>
+                        <td>{{ booking.start_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Start Time</th>
+                        <td>{{ booking.start_time }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">End Date</th>
+                        <td>{{ booking.end_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">End Time</th>
+                        <td>{{ booking.end_time }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Cost</th>
+                        <td>₹{{ booking.total_cost }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="text-success text-center fw-bold mt-4">Enjoy your event!</p>
+        </div>
+        <!-- <div class="card-footer text-center">
+            <a href="" class="btn btn-primary">Back to Booking details</a>
+        </div> -->
+    </div>
+</div>
 
 
 {% endblock %}

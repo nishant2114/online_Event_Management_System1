@@ -11,7 +11,7 @@ class Appointment(models.Model):
         ('scheduled', 'Scheduled'),
         ('completed', 'Completed'),
         ('canceled', 'Canceled')
-    ])
+    ], default="scheduled")
     type = models.CharField(max_length=10, choices=[
         ('physical', 'Physical'),
         ('virtual', 'Virtual')

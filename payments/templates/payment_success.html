@@ -3,9 +3,35 @@
 {% block title %}Payment Success{% endblock %}
 
 {% block content %}
-    <h2>Payment Successful!</h2>
-    <p>Your payment was successfully processed.</p>
-    <p>Booking ID: {{ booking.id }}</p>
-    <p>Total Cost: ₹{{ booking.total_cost }}</p>
-    <p>Thank you for booking with us!</p>
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header bg-success text-white text-center">
+            <h3>Payment Successful!</h3>
+        </div>
+        <div class="card-body text-center">
+            <p class="text-success fw-bold">Your payment was successfully processed.</p>
+            <hr>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-end">Booking ID:</th>
+                                <td class="text-start">{{ booking.id }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-end">Total Cost:</th>
+                                <td class="text-start">₹{{ booking.total_cost }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="text-muted mt-3">Thank you for booking with us!</p>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{% url 'hall_bookings' %}" class="btn btn-primary">Go to your bookings</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

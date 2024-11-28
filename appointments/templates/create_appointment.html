@@ -4,7 +4,6 @@
 
 
 {% block title %}
-<!-- Titel for specified to individual -->
 Create Appointment
 {% endblock %}
 
@@ -22,7 +21,7 @@ Create Appointment
 <!-- Main content specified to individual -->
 <body>
     <div class="container">
-        <h2>Create Appointment with {{ hall.name}}</h2>
+        <h2>Schedule Appointment with <span class="text-primary">{{ hall.name}}</span></h2>
         <form method="post">
             {% csrf_token %}
             <div class="mb-2">
@@ -58,7 +57,7 @@ Create Appointment
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="description"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Create Appointment</button>
+            <button type="submit" class="btn btn-primary">Schedule Appointment</button>
             <a href="{% url 'hall_details' hall.id %} "class="btn btn-secondary">Back</a>
         </form>
     </div>

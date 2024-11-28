@@ -5,11 +5,18 @@
             <i class="lni lni-grid-alt"></i>
         </button>
         <div class="sidebar-logo">
-            <a href="#">Celebrations</a>
+            <a href="#">Sidebar</a>
         </div>
     </div>
     <ul class="sidebar-nav">
-        <!-- Profile -->
+        <!-- Home -->
+        <li class="sidebar-item {% if request.path == '/' %}active{% endif %}">
+            <a href="{% url 'home' %}" class="sidebar-link">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+            </a>
+        </li>
+         <!-- Profile -->
         <li class="sidebar-item {% if request.path == '/profile/' %}active{% endif %}">
             <a href="{% url 'profile' %}" class="sidebar-link">
                 <i class="lni lni-user"></i>
@@ -31,6 +38,7 @@
             </a>
         </li>
         <!-- Notification -->
+        {% comment %}
         <li class="sidebar-item {% if request.path == '/notification/' %}active{% endif %}">
             <a href="#" class="sidebar-link">
                 <i class="lni lni-popup"></i>
@@ -44,6 +52,7 @@
                 <span>Setting</span>
             </a>
         </li>
+        {% endcomment %}
     </ul>
     <div class="sidebar-footer">
         <a href="{% url 'logout' %}" class="sidebar-link">

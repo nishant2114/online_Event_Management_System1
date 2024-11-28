@@ -35,13 +35,19 @@
     </div>
 
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
             {% for hall in halls %}
             <!-- Hall Card -->
             <div class="col">
                 <div class="card shadow-sm h-100">
-                    <a href="{% url 'hall_details' hall.id %}">
-                        <img src="{{ hall.images.url }}" alt="Hall Image" class="card-img-top hall-image" style="height: 200px; object-fit: cover;">
+                    
+                    <a href="{% if user.is_authenticated %}
+                                    {% url 'hall_details' hall.id %}
+                            {% else %}
+                                    {% url 'login' %}
+                            {% endif %} 
+                    ">
+                        <img src="{{ hall.images.url }}" alt="Hall Image" class="card-img-top hall-image" style="height: 250px; object-fit: cover;">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">{{ hall.name }}</h5>

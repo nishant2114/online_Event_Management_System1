@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container vh-100 mt-4">
+<div class="container mt-4">
     {% if messages %}
     {% for message in messages %}
         <div class="alert text-warning alert-{{ message.tags }}">{{ message }}</div>
@@ -14,10 +14,128 @@
     {% else %}
     <h1>Please Login with your account</h1>
     {% endif %}
+    <section class="hero d-flex justify-content-center align-items-center text-white text-center" style="height: 100vh; background: url('images/hero.jpg') center/cover;">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Plan Your Events with Ease</h1>
+            <p class="lead">Streamline your event management, from bookings to execution.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'hall' %}">Get Started</a>
+        
+
+
+        </div>
+    </section>
+
+    <section id="services" class="section py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Services</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/service1.jpg" class="card-img-top" alt="Service 1">
+                        <div class="card-body">
+                            <h3 class="card-title">Real-time Booking</h3>
+                            <p class="card-text">Check availability and book instantly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/service2.jpg" class="card-img-top" alt="Service 2">
+                        <div class="card-body">
+                            <h3 class="card-title">Vendor Management</h3>
+                            <p class="card-text">Manage catering, decor, and more effortlessly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/service3.jpg" class="card-img-top" alt="Service 3">
+                        <div class="card-body">
+                            <h3 class="card-title">Custom Notifications</h3>
+                            <p class="card-text">Stay updated with timely alerts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Features</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <h3>Responsive Design</h3>
+                        <p>Enjoy seamless access on all devices.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <h3>Secure Payments</h3>
+                        <p>Make payments with confidence.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <h3>Event Insights</h3>
+                        <p>Get valuable analytics for your events.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">What Our Users Say</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <blockquote class="blockquote">
+                        <p class="mb-3">"This platform made organizing our annual conference a breeze!"</p>
+                        <footer class="blockquote-footer">Alex, Event Organizer</footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-6">
+                    <blockquote class="blockquote">
+                        <p class="mb-3">"The real-time booking feature saved us so much time!"</p>
+                        <footer class="blockquote-footer">Priya, Wedding Planner</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Contact Us</h2>
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="email" class="form-control" placeholder="Your Email" required>
+                </div>
+                <div class="col-12">
+                    <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
 
 </div>
 <div>
     {% include 'layout/footer.html'%}
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+
+
 {% endblock %}
 

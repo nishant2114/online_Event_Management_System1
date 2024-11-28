@@ -37,7 +37,6 @@ def create_appointment(request, pk):
         date = request.POST['date']
         start_time = request.POST['start_time']
         end_time = request.POST['end_time']
-        status = request.POST['status']
         type = request.POST['type']
         description = request.POST.get('description', '')
 
@@ -49,13 +48,12 @@ def create_appointment(request, pk):
             start_time=start_time,
             end_time=end_time,
             hall_id=hall.id,
-            status=status,
             type=type,
             description=description
         )
 
         # Redirect to the dashboard with the hall's ID
-        return redirect('appointments_dashboard', pk=hall.id)
+        return redirect('appointments_dashboard')
 
     return render(request, 'create_appointment.html', {'hall': hall})
 
