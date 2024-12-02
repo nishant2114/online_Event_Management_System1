@@ -4,54 +4,69 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-
-{% csrf_token %}
 <div class="container">
   <div class="card shadow">
     {% if messages %}
-    {% for message in messages %}
+      {% for message in messages %}
         <div class="alert text-warning alert-{{ message.tags }}">{{ message }}</div>
-    {% endfor %}
-{% endif %}
+      {% endfor %}
+    {% endif %}
     <div class="card-header bg-primary text-white">
-      <h4 class="mb-0">Registration Form for Hall providers</h4>
+      <h4 class="mb-0">Registration Form for Hall Providers</h4>
     </div>
     <div class="card-body">
       <form id="registrationForm" method="post" enctype="multipart/form-data" action="{% url 'provider_registration' %}">
         {% csrf_token %}
-
+        
         <!-- Step 1: Personal Details -->
         <h5 class="text-primary">Step 1: Personal Details</h5>
-        <div class="mb-3">
+        <div class="mb-3 form-group">
           <label for="username" class="form-label">Username</label>
-          <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
+          <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username">
+          <span class="error-message">This field is required</span>
+          <span class="success-message">Looks good!</span>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 form-group">
             <label for="first-name" class="form-label">First Name</label>
-            <input type="text" id="first-name" name="first_name" class="form-control" placeholder="Enter your first name" required>
+            <input type="text" id="first-name" name="first_name" class="form-control" placeholder="Enter your first name">
+            <span class="error-message">This field is required</span>
+            <span class="success-message">Looks good!</span>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 form-group">
             <label for="last-name" class="form-label">Last Name</label>
-            <input type="text" id="last-name" name="last_name" class="form-control" placeholder="Enter your last name" required>
+            <input type="text" id="last-name" name="last_name" class="form-control" placeholder="Enter your last name">
+            <span class="error-message">This field is required</span>
+            <span class="success-message">Looks good!</span>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 form-group">
           <label for="email" class="form-label">Email</label>
-          <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+          <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email">
+          <span class="error-message">This field is required</span>
+          <span class="success-message">Looks good!</span>
         </div>
-        <div class="mb-3">
+        
+        <div class="mb-3 form-group">
           <label for="phone_number" class="form-label">Phone Number</label>
-          <input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Enter your phone number" required>
+          <input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Enter your phone number">
+          <span class="error-message">This field is required</span>
+          <span class="success-message">Looks good!</span>
         </div>
+        
+
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 form-group">
             <label for="password" class="form-label">Password</label>
-            <input type="password" id="password1" name="password1" class="form-control" placeholder="Enter a password" required>
+            <input type="password" id="password1" name="password1" class="form-control" placeholder="Enter a password">
+            <span class="error-message">This field is required</span>
+            <span class="success-message">Looks good!</span>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 form-group">
             <label for="confirm-password" class="form-label">Confirm Password</label>
-            <input type="password" id="passwoed2" name="password2" class="form-control" placeholder="Confirm your password" required>
+            <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm your password">
+            <span class="error-message">This field is required</span>
+            <span class="success-message">Looks good!</span>
           </div>
         </div>
 
@@ -59,52 +74,51 @@
 
         <!-- Step 2: Hall Details -->
         <h5 class="text-primary">Step 2: Hall Details</h5>
-        <div class="mb-3">
+        <div class="mb-3 form-group">
           <label for="hall-name" class="form-label">Hall Name</label>
-          <input type="text" id="hall_name" name="hall_name" class="form-control" placeholder="Enter hall name" required>
+          <input type="text" id="hall_name" name="hall_name" class="form-control" placeholder="Enter hall name">
+          <span class="error-message">This field is required</span>
+          <span class="success-message">Looks good!</span>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 form-group">
           <label for="location" class="form-label">Location</label>
-          <input type="text" id="location" name="location" class="form-control" placeholder="Enter location" required>
+          <input type="text" id="location" name="location" class="form-control" placeholder="Enter location">
+          <span class="error-message">This field is required</span>
+          <span class="success-message">Looks good!</span>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 form-group">
           <label for="address" class="form-label">Address</label>
           <textarea id="address" name="address" class="form-control" rows="3" placeholder="Enter address"></textarea>
+          <span class="error-message">This field is required</span>
+          <span class="success-message">Looks good!</span>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 form-group">
             <label for="price" class="form-label">Price per Hour</label>
-            <input type="number" id="price" name="price" class="form-control" placeholder="Enter price per hour" required>
+            <input type="number" id="price" name="price" class="form-control" placeholder="Enter price per hour">
+            <span class="error-message">This field is required</span>
+            <span class="success-message">Looks good!</span>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 form-group">
             <label for="capacity" class="form-label">Capacity</label>
-            <input type="number" id="capacity" name="capacity" class="form-control" placeholder="Enter capacity" required>
+            <input type="number" id="capacity" name="capacity" class="form-control" placeholder="Enter capacity">
+            <span class="error-message">This field is required</span>
+            <span class="success-message">Looks good!</span>
           </div>
         </div>
+        
         <div class="mb-3">
-          <label for="amenities" class="form-label">Amenities</label>
+          <label for="amenities" class="form-label ">Amenities</label>
           <textarea id="amenities" name="amenities" class="form-control" placeholder="Enter amenities (comma-separated)"></textarea>
+          <span class="error-message">This field is required</span>
+          <span class="success-message">Looks good!</span>
         </div>
-        <div class="mb-3">
+        
+        <div class="mb-3 form-group">
           <label for="photo" class="form-label">Upload Photo</label>
-          <input type="file" id="photo" name="photo" class="form-control" required>
-        </div>
-
-        <hr class="my-4">
-
-        <!-- Step 3: Bank Details -->
-        <h5 class="text-primary">Step 3: Bank Details(optional)</h5>
-        <div class="mb-3">
-          <label for="bank-name" class="form-label">Bank Name</label>
-          <input type="text" id="bank-name" name="bank_name" class="form-control" placeholder="Enter bank name">
-        </div>
-        <div class="mb-3">
-          <label for="account-number" class="form-label">Account Number</label>
-          <input type="text" id="account-number" name="account_number" class="form-control" placeholder="Enter account number">
-        </div>
-        <div class="mb-3">
-          <label for="ifsc-code" class="form-label">IFSC Code</label>
-          <input type="text" id="ifsc-code" name="ifsc_code" class="form-control" placeholder="Enter IFSC code">
+          <input type="file" id="photo" name="photo" class="form-control">
+          <span class="error-message">This field is required</span>
+          <span class="success-message">Looks good!</span>
         </div>
 
         <div class="d-flex justify-content-end mt-3">
@@ -114,4 +128,114 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .form-group input.error {
+    border-color: red;
+  }
+  .form-group input.success {
+    border-color: green;
+  }
+  .error-message {
+    color: red;
+    font-size: 14px;
+    display: none;
+  }
+  .success-message {
+    color: green;
+    font-size: 14px;
+    display: none;
+  }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("registrationForm");
+    const phoneInputField = document.querySelector("#phone_number");
+        
+    // Initialize intl-tel-input
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: "in", 
+        preferredCountries: ["in", "us", "gb"],
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    form.addEventListener("submit", (event) => {
+      const isValid = validateForm();
+
+      if (!isValid) {
+        event.preventDefault(); 
+      } else {
+        const amenitiesInput = document.getElementById("amenities");
+        if (!amenitiesInput.value.trim()) {
+          amenitiesInput.value = "No amenities provided"; 
+        }
+      }
+    });
+
+    function validateForm() {
+      let isValid = true;
+      const inputs = form.querySelectorAll("input, textarea");
+
+      inputs.forEach((input) => {
+        const errorMsg = input.nextElementSibling;
+        const successMsg = errorMsg ? errorMsg.nextElementSibling : null;
+
+        if (!input.value.trim()) {
+          input.classList.add("error");
+          input.classList.remove("success");
+          if (errorMsg) errorMsg.style.display = "block";
+          if (successMsg) successMsg.style.display = "none";
+          isValid = false;
+        } else {
+          input.classList.add("success");
+          input.classList.remove("error");
+          if (errorMsg) errorMsg.style.display = "none";
+          if (successMsg) successMsg.style.display = "block";
+        }
+      });
+
+      if (!phoneInput.isValidNumber()) {
+        const phoneError = phoneInputField.nextElementSibling;
+        const phoneSuccess = phoneError ? phoneError.nextElementSibling : null;
+        phoneInputField.classList.add("error");
+        phoneInputField.classList.remove("success");
+        if (phoneError) phoneError.style.display = "block";
+        if (phoneSuccess) phoneSuccess.style.display = "none";
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    const inputs = form.querySelectorAll("input, textarea");
+    inputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const errorMsg = input.nextElementSibling;
+        const successMsg = errorMsg ? errorMsg.nextElementSibling : null;
+
+        if (!input.value.trim()) {
+          input.classList.add("error");
+          input.classList.remove("success");
+          if (errorMsg) errorMsg.style.display = "block";
+          if (successMsg) successMsg.style.display = "none";
+        } else {
+          input.classList.add("success");
+          input.classList.remove("error");
+          if (errorMsg) errorMsg.style.display = "none";
+          if (successMsg) successMsg.style.display = "block";
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}

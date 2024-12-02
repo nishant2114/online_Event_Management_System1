@@ -2,11 +2,44 @@
 {% load static %}
 
 {% block title %}Login{% endblock %}
+{% block extra_css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-control {
+        padding: 8px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+    }
+    .form-control.error {
+        border-color: red;
+    }
+    .form-control.success {
+        border-color: green;
+    }
+    .error-message {
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+    .success-message {
+        color: green;
+        font-size: 14px;
+        display: none;
+    }
+  </style>
+  
+{% endblock %}
 
 {% block content %}
 <div class="container d-flex justify-content-center align-items-center">
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
-        <form method="POST" action="{% url 'login' %}">
+        <form id="loginForm" method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             
             <h2 class="text-center mb-4">Login</h2>
@@ -17,14 +50,18 @@
                 {% endfor %}
             {% endif %}
 
-            <div class="form-group mb-3">
+            <div class="form-group">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required>
+                <span class="error-message">This field is required</span>
+                <span class="success-message">Looks good!</span>
             </div>
 
-            <div class="form-group mb-3">
+            <div class="form-group">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
+                <span class="error-message">This field is required</span>
+                <span class="success-message">Looks good!</span>
             </div>
 
             <div class="d-grid mb-3">
@@ -36,4 +73,72 @@
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("loginForm");
+    
+        // Add event listener for form submission
+        form.addEventListener("submit", (event) => {
+            if (!validateForm()) {
+                event.preventDefault(); // Prevent submission if validation fails
+            }
+        });
+    
+        // Validate form fields
+        function validateForm() {
+            let isValid = true; // Flag to track validation status
+            const inputs = form.querySelectorAll("input");
+    
+            inputs.forEach((input) => {
+                const errorMsg = input.nextElementSibling;
+                const successMsg = errorMsg.nextElementSibling;
+    
+                if (!input.value.trim()) {
+                    // If input is empty
+                    input.classList.add("error");
+                    input.classList.remove("success");
+                    errorMsg.style.display = "block";
+                    successMsg.style.display = "none";
+                    isValid = false; // Mark form as invalid
+                } else {
+                    // If input is filled
+                    input.classList.add("success");
+                    input.classList.remove("error");
+                    errorMsg.style.display = "none";
+                    successMsg.style.display = "block";
+                }
+            });
+    
+            return isValid; // Return overall validation status
+        }
+    
+        // Add real-time validation for each field
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach((input) => {
+            input.addEventListener("input", () => {
+                const errorMsg = input.nextElementSibling;
+                const successMsg = errorMsg.nextElementSibling;
+    
+                if (!input.value.trim()) {
+                    input.classList.add("error");
+                    input.classList.remove("success");
+                    errorMsg.style.display = "block";
+                    successMsg.style.display = "none";
+                } else {
+                    input.classList.add("success");
+                    input.classList.remove("error");
+                    errorMsg.style.display = "none";
+                    successMsg.style.display = "block";
+                }
+            });
+        });
+    });
+    
+  </script>
+  
+
 {% endblock %}
