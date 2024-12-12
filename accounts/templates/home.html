@@ -1,8 +1,15 @@
 {% extends 'layout/base.html' %}
 
+{% block extra_css %}
+  <!-- Extra css specified to individual -->
+   <style>
+   
+   </style>
+{% endblock %}
+
 {% block content %}
 
-<div class="container mt-4">
+<div class="container">
     {% if messages %}
     {% for message in messages %}
         <div class="alert text-warning alert-{{ message.tags }}">{{ message }}</div>
@@ -10,15 +17,20 @@
 {% endif %}
     <!-- Page specific content will go here -->
     {% if user.is_authenticated %}
-    <h1>Welcome {{user.last_name}}</h1>
+    <h1 class="text-light">Welcome {{user.last_name}}</h1>
     {% else %}
     <h1>Please Login with your account</h1>
     {% endif %}
-    <section class="hero d-flex justify-content-center align-items-center text-white text-center" style="height: 100vh; background: url('images/hero.jpg') center/cover;">
+    <section class="hero d-flex justify-content-center align-items-center text-white text-center" style="height: 100vh; background: url('static/images/landingpage.jpg') center/cover;">
         <div class="container">
+            {% if user.is_authenticated %}
+    <h1 class="text-light">Welcome {{user.last_name}}</h1>
+    {% else %}
+    <h1>Please Login with your account</h1>
+    {% endif %}
             <h1 class="display-4 fw-bold">Plan Your Events with Ease</h1>
             <p class="lead">Streamline your event management, from bookings to execution.</p>
-            <a class="btn btn-primary btn-lg" href="{% url 'hall' %}">Get Started</a>
+            <a class="btn btn-primary btn-dark" href="{% url 'hall' %}">Get Started</a>
         
 
 
@@ -31,25 +43,26 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card h-100">
-                        <img src="images/service1.jpg" class="card-img-top" alt="Service 1">
+                        <img src="static\images\image.png" class="card-img-top" alt="Service 1">
                         <div class="card-body">
-                            <h3 class="card-title">Real-time Booking</h3>
+                            <h3 class="card-title">Real-time Hall Booking</h3>
                             <p class="card-text">Check availability and book instantly.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100">
-                        <img src="images/service2.jpg" class="card-img-top" alt="Service 2">
+                        <img src="static\images\appointment.jpg" class="card-img-top" alt="Service 2">
                         <div class="card-body">
-                            <h3 class="card-title">Vendor Management</h3>
-                            <p class="card-text">Manage catering, decor, and more effortlessly.</p>
+                            <h3 class="card-title">appointment Scheduling</h3>
+                            <p class="card-text">Schedule and manage appointments with vendors, stakeholders, or participants.
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100">
-                        <img src="images/service3.jpg" class="card-img-top" alt="Service 3">
+                        <img src="static\images\notification.jpg" class="card-img-top" alt="Service 3">
                         <div class="card-body">
                             <h3 class="card-title">Custom Notifications</h3>
                             <p class="card-text">Stay updated with timely alerts.</p>

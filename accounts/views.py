@@ -142,15 +142,16 @@ def register(request):
 # Utility function to validate and format phone number
 def validate_phone_number(phone_number):
     try:
-        # Parse the phone number
-        parsed_number = parse(phone_number, None)
-        # Check if the number is valid
+        # Parse the phone number with country code (assumes input has country code like +91)
+        parsed_number = parse(phone_number, "IN")  # Default to India if country code not provided
+        # Validate the phone number
         if is_valid_number(parsed_number):
             return format_number(parsed_number, PhoneNumberFormat.E164)
         else:
             return None
     except Exception:
         return None
+
     
 # def provider_registration_view(request):
 #     return render(request, 'provider_registration.html')

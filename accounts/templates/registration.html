@@ -3,20 +3,40 @@
 
 {% block title %}Register{% endblock %}
 
+{% block extra_css %}
+<!-- intl-tel-input CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+
+<style>
+input.error {
+    border-color: red;
+}
+
+input.success {
+    border-color: green;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    display: none;
+}
+
+.success-message {
+    color: green;
+    font-size: 14px;
+    display: none;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="container  d-flex justify-content-center align-items-center">
-   
-            
-        
-        
+<div class="container d-flex justify-content-center align-items-center">
     <div class="card shadow-lg p-4 vh-80" style="width: 100%; max-width: 800px;">
         <div class="">
-            <h2 class="text-center  mb-4">User Register</h2>
-        </div >
-        <div>
-
+            <h2 class="text-center mb-4">User Register</h2>
         </div>
-        <form method="POST" action="{% url 'register' %}">
+        <form id="registrationForm" method="POST" action="{% url 'register' %}">
             {% csrf_token %}
 
             {% if messages %}
@@ -27,39 +47,53 @@
 
             <div class="form-group mb-2">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" >
+                <span class="error-message">This field is required</span>
+                <span class="success-message">Looks good!</span>
             </div>
 
             <div class="row mb-2">
                 <div class="col-md-6">
                     <label for="first_name" class="form-label">First Name</label>
-                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Enter first name" required>
+                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Enter first name">
+                    <span class="error-message">This field is required</span>
+                    <span class="success-message">Looks good!</span>
                 </div>
                 <div class="col-md-6">
                     <label for="last_name" class="form-label">Last Name</label>
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Enter last name" required>
+                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Enter last name" >
+                    <span class="error-message">This field is required</span>
+                    <span class="success-message">Looks good!</span>
                 </div>
             </div>
 
             <div class="form-group mb-2">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="Enter email" required>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Enter email" >
+                <span class="error-message">This field is required</span>
+                <span class="success-message">Looks good!</span>
             </div>
 
             <div class="form-group mb-2">
-                <label for="phone_number" class="form-label">Phone Number with(+91)</label>
-                <input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="Enter phone number" required>
+                <label for="phone_number" class="form-label">Phone Number</label>
+                <input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Enter phone number">
+                <span class="error-message">This field is required</span>
+                <span class="success-message">Looks good!</span>
             </div>
 
             <div class="row mb-3">
                 <div class="form-group col-md-6">
                     <label for="password1" class="form-label">Password</label>
-                    <input type="password" id="password1" name="password1" class="form-control" placeholder="Enter password" required>
+                    <input type="password" id="password1" name="password1" class="form-control" placeholder="Enter password" >
+                    <span class="error-message">This field is required</span>
+                    <span class="success-message">Looks good!</span>
                 </div>
-    
+
                 <div class="form-group col-md-6">
                     <label for="password2" class="form-label">Confirm Password</label>
-                    <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm password" required>
+                    <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm password" >
+                    <span class="error-message">This field is required</span>
+                    <span class="success-message">Looks good!</span>
                 </div>
             </div>
 
@@ -74,4 +108,74 @@
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- intl-tel-input JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("registrationForm");
+        const phoneInputField = document.querySelector("#phone_number");
+        
+        // Initialize intl-tel-input
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "in", // Default to India
+            preferredCountries: ["in", "us", "gb"], // Add preferred countries
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js", // Load utility script
+        });
+    
+        // Form validation
+        form.addEventListener("submit", (event) => {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
+    
+        function validateForm() {
+            let isValid = true;
+            const inputs = form.querySelectorAll("input");
+            
+            inputs.forEach((input) => {
+                const errorMsg = input.nextElementSibling;
+                const successMsg = errorMsg.nextElementSibling;
+    
+                if (!input.value.trim()) {
+                    input.classList.add("error");
+                    input.classList.remove("success");
+                    errorMsg.style.display = "block";
+                    successMsg.style.display = "none";
+                    isValid = false;
+                } else {
+                    input.classList.add("success");
+                    input.classList.remove("error");
+                    errorMsg.style.display = "none";
+                    successMsg.style.display = "block";
+                }
+            });
+    
+            return isValid;
+        }
+    
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach((input) => {
+            input.addEventListener("input", () => {
+                const errorMsg = input.nextElementSibling;
+                const successMsg = errorMsg.nextElementSibling;
+    
+                if (!input.value.trim()) {
+                    input.classList.add("error");
+                    input.classList.remove("success");
+                    errorMsg.style.display = "block";
+                    successMsg.style.display = "none";
+                } else {
+                    input.classList.add("success");
+                    input.classList.remove("error");
+                    errorMsg.style.display = "none";
+                    successMsg.style.display = "block";
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
