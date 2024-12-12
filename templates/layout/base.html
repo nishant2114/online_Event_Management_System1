@@ -17,7 +17,16 @@
     <link href="{% static 'css/layout/base.css' %}" rel="stylesheet">
     {% block extra_css %}
     <!-- Extra CSS specific to individual pages -->
+    
     {% endblock %}
+    <style>
+        .home-body{
+            background-image: url('static/images/landingpage.jpg');
+        }
+        .hero{
+            background-color: #F8F9FA;
+        }
+     </style>
 
 </head>
 
@@ -28,13 +37,13 @@
         {% include 'layout/sidebar.html' %}
         {% endif%}
 
-        <div class="main d-flex flex-column vh-100 overflow-auto " >
+        <div class="main d-flex flex-column vh-100 overflow-auto home-body" >
             <!-- Navbar -->
             <div class="">
                 {% include 'layout/navbar.html' %}
             </div>
             <div class="mb-5"></div>
-            <div class="mt-5" >
+            <div class="mt-2  hero" >
                 {% block content %}
                 <div class="text-center vh-100 overflow-auto" >
 
